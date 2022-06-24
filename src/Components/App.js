@@ -18,7 +18,6 @@ function App(props) {
       <Footer />
     </div>
   );
-
 }
 
 App.propTypes = {
