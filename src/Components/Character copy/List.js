@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Character from './Character';
 import Pagination from '@mui/material/Pagination';
-import pagination from './pagination';
 
 export default function List() {
     const [characters, setCharacter] = useState([]);
@@ -10,6 +9,7 @@ export default function List() {
     const [nextPageUrl, setNextPageUrl] = useState();
     const [prevPageUrl, setPrevPageUrl] = useState();
     const [pages, setPages] = useState();
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         const url = currentPageUrl;
@@ -43,6 +43,11 @@ export default function List() {
         setCurrentPageUrl(`https://rickandmortyapi.com/api/character?page=${num}`)
     }
 
+    const handleChange = (event, page) => {
+        setCurrentPageUrl(`https://rickandmortyapi.com/api/character?page=${page}`);
+        setPage(page);
+    }
+
     if (loading) 
         return (<div>Loading...</div>);
     
@@ -56,9 +61,8 @@ export default function List() {
                     variant="outlined"
                     size="large"
 
-                    prevPage={prevPage}
-                    goToPage={goToPage}
-                    nextPage={nextPage}
+                    page = {page}
+                    onChange = {handleChange}
                 />
 
                 {
@@ -77,10 +81,9 @@ export default function List() {
                     color= "primary"
                     variant="outlined"
                     size="large"
-
-                    prevPage={prevPage}
-                    goToPage={goToPage}
-                    nextPage={nextPage}
+                    
+                    page = {page}
+                    onChange = {handleChange}
                 />
             </div>
         </div>
