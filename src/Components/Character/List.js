@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Character from './Character';
+import Pagination from './Pagination';
 
 export default function List() {
     const [characters, setCharacter] = useState([]);
@@ -41,16 +42,23 @@ export default function List() {
         setCurrentPageUrl(`https://rickandmortyapi.com/api/character?page=${num}`)
     }
 
+    if (loading) 
+        return (<div>Loading...</div>);
+    
     return (
         <div>
             <h2>Characters</h2>
             <div className="row">
+                <Pagination 
+                    prevPage = {prevPageUrl}
+                    goToPage = {goToPage}
+                    nextPage = {nextPageUrl}
+                    pages = {pages}
+                    goToPrevPage = {prevPage}
+                    goToNextPage = {nextPage}
+                />
+
                 {
-                    loading? (
-                        <div>Loading...</div>
-                    )
-                    :
-                    (
                     characters.map((character) => (
                         <Character
                             key={character.id}
@@ -58,8 +66,17 @@ export default function List() {
                             origin={character.origin}
                             image={character.image}
                         />
-                    )))
+                    ))
                 }
+                
+                <Pagination 
+                    prevPage = {prevPageUrl}
+                    goToPage = {goToPage}
+                    nextPage = {nextPageUrl}
+                    pages = {pages}
+                    goToPrevPage = {prevPage}
+                    goToNextPage = {nextPage}
+                />
             </div>
         </div>
     )
