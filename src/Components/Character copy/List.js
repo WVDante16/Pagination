@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Character from './Character';
 import Pagination from '@mui/material/Pagination';
-import Pagination from './Pagination';
+import pagination from './pagination';
 
 export default function List() {
     const [characters, setCharacter] = useState([]);
@@ -52,12 +52,13 @@ export default function List() {
             <div className="row">
                 <Pagination 
                     count={pages}
-                    prevPageUrl = {prevPage}
-                    nextPageUrl = {nextPage}
-                    currentPageUrl = {goToPage}
-                
-                    variant="outlined"
                     color= "primary"
+                    variant="outlined"
+                    size="large"
+
+                    prevPage={prevPage}
+                    goToPage={goToPage}
+                    nextPage={nextPage}
                 />
 
                 {
@@ -72,12 +73,14 @@ export default function List() {
                 }
                 
                 <Pagination 
-                    prevPage = {prevPageUrl}
-                    goToPage = {goToPage}
-                    nextPage = {nextPageUrl}
-                    pages = {pages}
-                    goToPrevPage = {prevPage}
-                    goToNextPage = {nextPage}
+                    count={pages}
+                    color= "primary"
+                    variant="outlined"
+                    size="large"
+
+                    prevPage={prevPage}
+                    goToPage={goToPage}
+                    nextPage={nextPage}
                 />
             </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Pagination({nextPage, prevPage, goToPage, pages, goToPrevPage, goToNextPage}) {
+function pagination({nextPage, prevPage, goToPage, pages, goToPrevPage, goToNextPage}) {
     let pageButtons = [];
     
     for (let i = 1; i <= pages; i++) {
@@ -19,4 +19,4 @@ function Pagination({nextPage, prevPage, goToPage, pages, goToPrevPage, goToNext
     );
 }
 
-export default Pagination;
+export default pagination;
