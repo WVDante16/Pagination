@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import Character from './Character';
 import Pagination from '@mui/material/Pagination';
+import './styles.css';
 
 export default function List() {
     const [characters, setCharacter] = useState([]);
     const [loading, setLoading] = useState(true);
     const [currentPageUrl, setCurrentPageUrl] = useState("https://rickandmortyapi.com/api/character");
-    const [nextPageUrl, setNextPageUrl] = useState();
-    const [prevPageUrl, setPrevPageUrl] = useState();
     const [pages, setPages] = useState();
     const [page, setPage] = useState(1);
 
@@ -19,43 +18,24 @@ export default function List() {
             const {results, info} = await data.json();
             setCharacter(results);
             setLoading(false);
-
-            setNextPageUrl(info.next);
-            setPrevPageUrl(info.prev);
             setPages(info.pages);
         }
 
         fetchData();
     }, [currentPageUrl]);
 
-    //Next Page
-    const nextPage = () => {
-        setCurrentPageUrl(nextPageUrl);
-    }
-
-    //Prev Page
-    const prevPage = () => {
-        setCurrentPageUrl(prevPageUrl);
-    }
-
-    //Choose Page
-    const goToPage = (num) => {
-        setCurrentPageUrl(`https://rickandmortyapi.com/api/character?page=${num}`)
-    }
-
-    const handleChange = (event, page) => {
-        setCurrentPageUrl(`https://rickandmortyapi.com/api/character?page=${page}`);
-        setPage(page);
+    const handleChange = (event, value) => {
+        setPage(value);
+        setCurrentPageUrl(`https://rickandmortyapi.com/api/character?page=${value}`);
     }
 
     if (loading) 
         return (<div>Loading...</div>);
     
     return (
-        <div>
+        <div className="List">
             <h2>Characters</h2>
-            <div className="row">
-                <Pagination 
+            <Pagination 
                     count={pages}
                     color= "primary"
                     variant="outlined"
@@ -64,7 +44,7 @@ export default function List() {
                     page = {page}
                     onChange = {handleChange}
                 />
-
+            <div className="row">
                 {
                     characters.map((character) => (
                         <Character
@@ -75,8 +55,8 @@ export default function List() {
                         />
                     ))
                 }
-                
-                <Pagination 
+            </div>
+            <Pagination 
                     count={pages}
                     color= "primary"
                     variant="outlined"
@@ -85,7 +65,6 @@ export default function List() {
                     page = {page}
                     onChange = {handleChange}
                 />
-            </div>
         </div>
     )
 }

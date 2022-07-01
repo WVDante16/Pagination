@@ -1,5 +1,5 @@
 import React from 'react';
-import List from '../Character copy/List';
+import List from '../CharacterMUI/List';
 
 function Home(props) {
     return (
